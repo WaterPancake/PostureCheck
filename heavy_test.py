@@ -7,6 +7,8 @@ import cv2
 import numpy as np
 import math
 
+from llm.eval import eval_movement
+
 def landmarks_to_np(landmarks, indicies, w, h):
     np_landmarks = []
     for idx in indicies:
@@ -176,8 +178,15 @@ def run():
     cap.release()
     out.release()
     cv2.destroyAllWindows()
-    print(f"feamur type {femurType}, '\n' Knee over toe: {kneeOverToes}, '\n' passed parallel {passParallel}")
+    params = {
+    "movement": "Deep squat",
+    "femur": femurType, # alt: long, normal
+    "parallel": passParallel, # alt successfded
+    "kneeovertoe": kneeOverToes
+    }
+    # print(f"feamur type {femurType}, '\n' Knee over toe: {kneeOverToes}, '\n' passed parallel {passParallel}")
 
+    LLM_ANSWER = eval_movement(params)
     
 
 
