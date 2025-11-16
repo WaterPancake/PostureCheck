@@ -77,7 +77,7 @@ options = PoseLandmarkerOptions(
 
 landmarker = PoseLandmarker.create_from_options(options)
 
-video_path = "videos/tahj_squat.mp4"
+video_path = "videos/squat2.mp4"
 cap = cv2.VideoCapture(video_path)
 
 
@@ -95,9 +95,12 @@ while cap.isOpened():
     timeStamp += 1
     
     if results.pose_landmarks:
-        results = results.pose_landmarks[0]
-        # print(results)
-        draw_landmarks(frame, results, BODY_LANDMARKS, w, h)
+        results = results.pose_landmarks[0] # the ordering of what happends with multiple people is to be done later
+
+        # draw_landmarks(frame, results, BODY_LANDMARKS, w, h)
+        squat_knee_over_toe(frame, results, w, h)
+        squat_parallel(frame, results, w, h)
+
 
         if cv2.waitKey(1) == ord('q'):
                 break
